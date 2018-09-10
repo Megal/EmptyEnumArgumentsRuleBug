@@ -10,8 +10,10 @@ class LoyaltyProgramDetailCardRow {
 
         switch controlType {
         case 0:
-            self.info = ""
+            // This doesn't triggers crash
+            self.info = "\(minRequiredAmount)рублей"
         case 1:
+            // But this does
             self.info = "\(minRequiredAmount) рублей"
         default:
             self.info = ""
