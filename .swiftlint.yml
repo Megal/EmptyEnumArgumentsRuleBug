@@ -1,0 +1,78 @@
+# Disable some rules for good
+disabled_rules:
+  - closure_parameter_position # wanted: { \n [capture list] (parameters) in
+  - statement_position # `else {`on next line 
+  - trailing_comma # c-style why not
+  - trailing_newline # To place code on eyes level not on bottom 
+  - unused_closure_parameter # not used parameters may help to read semantics
+  - vertical_whitespace # cannot configure to w=3 / e=4
+  - force_cast # we are using it
+  - opening_brace # we have Stroustrup-style in codebase
+  - trailing_whitespace # we should soon enable it!
+  - cyclomatic_complexity # we should enable this later, code with too high complexity is impossible to support!
+  - nesting # we use deep nesting, but probably should't
+  - identifier_name # cannot satisfy this yet
+  - type_name # It's easy to fix this one!
+
+# Only source subdirectory (don't mess with Pods)
+included: 
+  - Infrastructure
+  - Demo
+  - Core
+  - Application
+
+excluded:
+  - Application/ViewControllers/Portfolio/Agreements # causes a crash
+
+shorthand_operator:
+  severity: warning
+
+# cyclomatic_complexity:
+#   severity: warning # warning for now, should have error on very big complexity
+
+# Only way to support multiple protocol conformances on next line
+colon:
+  flexible_right_spacing: true
+
+force_try:
+  severity: warning # warning for now, should be error
+
+# Max line length
+line_length: 150 # only warning for now, 250 should be error
+
+# class / struct length
+type_body_length: 500 # should be aimed to value near 200
+
+# Max file size
+file_length: 500 # should have an error if 1000 or so
+
+# Backend for error reporting
+reporter: xcode
+
+# Too many warnings becomes an error
+warning_threshold: 5000 # will decrease that iteration by iteration
+
+# Too big functions
+function_body_length: 80 # warning for now, should be error
+
+# Too big tuples
+large_tuple: 3 # Actually 2 is a default value, and it should be an error
+
+# How many arguments function may have
+function_parameter_count: 10 # probably we should go even lower to 5
+
+# type_name with \`
+type_name:
+  allowed_symbols: ['\`']
+
+# identifier_name with \` and _
+# identifier_name:
+#   allowed_symbols: ['\`', '_']
+#   min_length: 2
+
+custom_rules:
+  strongify_over_self: # rule identifier
+    name: "Custom rule - Strongify" # rule name. optional.
+    regex: "(guard let `self`)" # matching pattern
+    message: "To recapture self use variable `strongify` e.g.: guard let strongify = self" # violation message. optional.
+    severity: warning # violation severity. optional.
